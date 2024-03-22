@@ -1,11 +1,13 @@
 package com.wally.workhub.config;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Data
+@Builder
 public class ErrorResponse {
     private String message;
     private String code;

@@ -21,7 +21,11 @@ public class MvcExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ErrorResponse invalidRequestHandler(MethodArgumentNotValidException e) {
-        ErrorResponse errorResponse = new ErrorResponse("Invalid request", "400", "BAD_REQUEST");
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .message("Invalid Request")
+                .code("400")
+                .status(String.valueOf(HttpStatus.BAD_REQUEST.value()))
+                .build();
 
         for (FieldError fieldError : e.getFieldErrors()) {
             log.info(fieldError.getDefaultMessage());

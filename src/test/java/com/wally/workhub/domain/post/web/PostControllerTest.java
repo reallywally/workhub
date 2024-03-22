@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -59,12 +60,13 @@ class PostControllerTest {
                 .build();
 
         String json = objectMapper.writeValueAsString(request);
+
+        // when
         mockMvc.perform(get("/post2")
-                        .contentType(MediaType.APPLICATION_JSON)
+                        .contentType(APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isBadRequest())
                 .andDo(print());
-        // when
 
         // then
     }
@@ -79,7 +81,7 @@ class PostControllerTest {
 
         String json = objectMapper.writeValueAsString(request);
         mockMvc.perform(post("/posts")
-                        .contentType(MediaType.APPLICATION_JSON)
+                        .contentType(APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isOk())
                 .andDo(print());
