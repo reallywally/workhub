@@ -14,6 +14,12 @@ public class PostService {
 
     private final PostRepository postRepository;
 
+    public Post get(Long id){
+        Post post = postRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
+
+        return post;
+    }
+
     public void write(PostCreate postCreate) {
         Post post = Post.builder()
                 .title(postCreate.getTitle())
