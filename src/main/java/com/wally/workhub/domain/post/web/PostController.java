@@ -2,6 +2,7 @@ package com.wally.workhub.domain.post.web;
 
 import com.wally.workhub.domain.post.domain.Post;
 import com.wally.workhub.domain.post.model.PostCreate;
+import com.wally.workhub.domain.post.model.PostResponse;
 import com.wally.workhub.domain.post.service.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,10 +17,9 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping("/posts/{postId}")
-    public Post get(@PathVariable Long postId) {
-
-        Post post = postService.get(postId);
-        return post;
+    public PostResponse get(@PathVariable Long postId) {
+        PostResponse postResponse = postService.get(postId);
+        return postResponse;
     }
 
     @PostMapping("/posts")

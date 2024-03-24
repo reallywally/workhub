@@ -3,9 +3,12 @@ package com.wally.workhub.domain.post.domain;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+
 @Entity
+@Getter
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class Post {
     @Id
