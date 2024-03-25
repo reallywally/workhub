@@ -7,3 +7,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update # none, create-drop(절대X), create(절대X), update, validate
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true  # 페이징을 1부터 시작

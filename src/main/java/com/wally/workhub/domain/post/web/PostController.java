@@ -1,12 +1,12 @@
 package com.wally.workhub.domain.post.web;
 
-import com.wally.workhub.domain.post.domain.Post;
 import com.wally.workhub.domain.post.model.PostCreate;
 import com.wally.workhub.domain.post.model.PostResponse;
 import com.wally.workhub.domain.post.service.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,8 +25,8 @@ public class PostController {
     }
 
     @GetMapping("/posts")
-    public List<PostResponse> getList() {
-        return postService.getList();
+    public List<PostResponse> getList(Pageable pageable) {
+        return postService.getList(pageable);
     }
 
     @PostMapping("/posts")
