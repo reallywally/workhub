@@ -10,7 +10,7 @@
   - 요창받는 데이터 검증은 Spring Validation을 사용하여 Controller에서 처리
 - Service
   - 비즈니스 로직을 처리하는 로직은 Service에서 처리
-  - 응답하는 데이터 형식을 DTO로 변환하여 반환
+  - 요청, 응답하는 데이터 형식을 DTO로 변환한다.
   - 역할에 따라 분리될수 있음. 예) 게시판 CRUD, 비즈니스 로작을 처리하는 PostService, DTO 변환 처리하는 PostWebService 등 
 - Repository
 - Test Code
