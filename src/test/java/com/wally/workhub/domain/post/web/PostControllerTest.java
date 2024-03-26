@@ -33,10 +33,10 @@ class PostControllerTest {
     @Autowired
     private PostRepository postRepository;
 
-    @BeforeEach
-    void clean() {
-        postRepository.deleteAll();
-    }
+//    @BeforeEach
+//    void clean() {
+//        postRepository.deleteAll();
+//    }
 
     @Test
     void test() throws Exception {

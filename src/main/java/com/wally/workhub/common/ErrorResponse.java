@@ -1,4 +1,4 @@
-package com.wally.workhub.config;
+package com.wally.workhub.common;
 
 import lombok.Builder;
 import lombok.Data;
