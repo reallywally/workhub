@@ -1,6 +1,7 @@
 package com.wally.workhub.domain.post.web;
 
 import com.wally.workhub.domain.post.model.PostCreate;
+import com.wally.workhub.domain.post.model.PostEdit;
 import com.wally.workhub.domain.post.model.PostResponse;
 import com.wally.workhub.domain.post.service.PostService;
 import jakarta.validation.Valid;
@@ -32,6 +33,13 @@ public class PostController {
     @PostMapping("/posts")
     public String getPost(@RequestBody @Valid PostCreate postCreate) {
         postService.write(postCreate);
+
+        return "Post";
+    }
+
+    @PatchMapping("/posts/{postId}")
+    public String editPost(@PathVariable Long postId, @RequestBody @Valid PostEdit postEdit) {
+        postService.edit(postId, postEdit);
 
         return "Post";
     }
