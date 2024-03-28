@@ -32,6 +32,7 @@ public class PostController {
 
     @PostMapping("/posts")
     public String getPost(@RequestBody @Valid PostCreate postCreate) {
+        postCreate.validate();
         postService.write(postCreate);
 
         return "Post";

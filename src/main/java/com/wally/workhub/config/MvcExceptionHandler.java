@@ -1,11 +1,14 @@
 package com.wally.workhub.config;
 
 import com.wally.workhub.common.ErrorResponse;
+import com.wally.workhub.exception.WorkhubException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -34,4 +37,20 @@ public class MvcExceptionHandler {
         return errorResponse;
     }
 
+    @ResponseBody
+    @ExceptionHandler(WorkhubException.class)
+    public ResponseEntity<ErrorResponse> workhubException(WorkhubException e) {
+        int statusCode = e.getStatusCode();
+
+        ErrorResponse build = ErrorResponse.builder()
+                .message(e.getMessage())
+                .code(String.valueOf(statusCode))
+                .status(String.valueOf(HttpStatus.NOT_FOUND.value()))
+                .validation(e.getValidation())
+                .build();
+
+        return ResponseEntity.status(statusCode)
+                .body(build);
+
+    }
 }
