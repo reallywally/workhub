@@ -1,5 +1,6 @@
 package com.wally.workhub.domain.post.web;
 
+import com.wally.workhub.config.data.UserSession;
 import com.wally.workhub.domain.post.model.PostCreate;
 import com.wally.workhub.domain.post.model.PostEdit;
 import com.wally.workhub.domain.post.model.PostResponse;
@@ -18,6 +19,13 @@ import java.util.List;
 public class PostController {
 
     private final PostService postService;
+
+    @GetMapping("/foo")
+    public String foo(UserSession userSession) {
+        log.info("userName: {}", userSession.userName);
+
+        return "foo";
+    }
 
     @GetMapping("/posts/{postId}")
     public PostResponse get(@PathVariable Long postId) {
