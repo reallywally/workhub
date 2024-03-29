@@ -1,0 +1,5 @@
+### curl 테스트 가능
+
+GET http://localhost:8080/foo
+Content-Tye: application/json
+Authorization: 1111
