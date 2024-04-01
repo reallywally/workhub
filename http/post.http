@@ -1,5 +1,15 @@
 ### curl 테스트 가능
 
 GET http://localhost:8080/foo
-Content-Tye: application/json
+Content-Type: application/json
 Authorization: 1111
+
+### 로그인
+
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+"email": "wally@naver.com",
+"password": "1111"
+}
