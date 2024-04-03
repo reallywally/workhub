@@ -2,6 +2,8 @@ package com.wally.workhub.config;
 
 import com.wally.workhub.config.data.UserSession;
 import com.wally.workhub.exception.Unauthorized;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -17,6 +19,17 @@ public class AuthResolver implements HandlerMethodArgumentResolver{
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+        HttpServletRequest servletRequest = webRequest.getNativeRequest(HttpServletRequest.class);
+
+        if(servletRequest == null){
+            throw new Unauthorized();
+        }
+
+        Cookie[] cookies = servletRequest.getCookies();
+        if(cookies.length == 0){
+            throw new Unauthorized();
+        }
+
         String accessToken = webRequest.getHeader("Authorization");
         if(accessToken == null && accessToken.equals("")){
             throw new Unauthorized();
