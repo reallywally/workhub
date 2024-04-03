@@ -2,6 +2,8 @@ package com.wally.workhub.domain.auth.web;
 
 import com.wally.workhub.domain.auth.model.Login;
 import com.wally.workhub.domain.auth.service.AuthService;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -11,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.crypto.SecretKey;
 import java.time.Duration;
+import java.util.Base64;
 
 @Slf4j
 @RestController
@@ -20,20 +24,22 @@ public class AuthController {
 
     private final AuthService authService;
 
+    private final static String KEY = "3CxtqcfIGzT0nagO/9Um7+UmRDPyKvsvNSXAQONj9DE=";
+
     @PostMapping("/auth/login")
-    public ResponseEntity<Object> login(@RequestBody Login login) {
-        log.info("login: {}", login);
-        String accessToken = authService.signIn(login);
+    public String login(@RequestBody Login login) {
+        Long userId = authService.signIn(login);
+        // 키 생성
+//        SecretKey key = Jwts.SIG.HS256.key().build();
+//        byte[] encoded = key.getEncoded();
+//        String strKey = Base64.getEncoder().encodeToString(encoded);
+        SecretKey secretKey = Keys.hmacShaKeyFor(Base64.getDecoder().decode(KEY));
 
-        ResponseCookie cookie = ResponseCookie.from("SESSION", accessToken)
-                .domain("localhost")  // 서버 환경에 따른 분리 필요
-                .path("/")
-                .httpOnly(true)
-                .maxAge(Duration.ofDays(30)) // 쿠키는 보돈 30일
-                .build();
+        String jws = Jwts.builder()
+                .subject(String.valueOf(userId))
+                .signWith(secretKey)
+                .compact();
 
-        return ResponseEntity.ok()
-                .header(HttpHeaders.SET_COOKIE, cookie.toString())
-                .build();
+        return jws;
     }
 }

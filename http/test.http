@@ -2,7 +2,7 @@
 
 GET http://localhost:8080/foo
 Content-Type: application/json
-Authorization: 1111
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIn0.C5WtxLjy20S-F3GYkAoQ7Eq9KDB1wMw-Fy-GWuRkZlI
 
 ### 로그인
 

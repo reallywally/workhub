@@ -14,13 +14,13 @@ public class AuthService {
 
     private final UserRepository userRepository;
 
-    public String signIn(Login login) {
+    public Long signIn(Login login) {
         User user = userRepository.findByEmailAndPassword(login.getEmail(), login.getPassword())
                 .orElseThrow(InvalidSignInformation::new);
 
         Session session = user.addSession();
 
-        return session.getAccessToken();
+        return user.getId();
 
 
     }
