@@ -2,6 +2,7 @@ package com.wally.workhub.domain.auth.web;
 
 import com.wally.workhub.config.AppConfig;
 import com.wally.workhub.domain.auth.model.Login;
+import com.wally.workhub.domain.auth.model.Signup;
 import com.wally.workhub.domain.auth.service.AuthService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -42,5 +43,10 @@ public class AuthController {
                 .compact();
 
         return jws;
+    }
+
+    @PostMapping("/auth/signup")
+    public void signup(@RequestBody Signup signup) {
+        authService.signUp(signup);
     }
 }
