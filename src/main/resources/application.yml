@@ -7,6 +7,11 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update # none, create-drop(절대X), create(절대X), update, validate
+
+workhub:
+  hello: hello
+  jwt-key: 3CxtqcfIGzT0nagO/9Um7+UmRDPyKvsvNSXAQONj9DE=
+
 #  data:
 #    web:
 #      pageable:

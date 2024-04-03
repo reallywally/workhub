@@ -9,6 +9,8 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -18,8 +20,10 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import javax.crypto.SecretKey;
 import java.util.Base64;
 
+@Slf4j
+@RequiredArgsConstructor
 public class AuthResolver implements HandlerMethodArgumentResolver{
-    private final static String KEY = "3CxtqcfIGzT0nagO/9Um7+UmRDPyKvsvNSXAQONj9DE=";
+    private final AppConfig appConfig;;
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
@@ -34,7 +38,7 @@ public class AuthResolver implements HandlerMethodArgumentResolver{
             throw new Unauthorized();
         }
 
-        SecretKey secretKey = Keys.hmacShaKeyFor(Base64.getDecoder().decode(KEY));
+        SecretKey secretKey = Keys.hmacShaKeyFor(appConfig.getJwtKey());
 
         try {
 

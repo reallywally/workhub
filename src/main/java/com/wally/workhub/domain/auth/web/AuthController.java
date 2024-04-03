@@ -1,5 +1,6 @@
 package com.wally.workhub.domain.auth.web;
 
+import com.wally.workhub.config.AppConfig;
 import com.wally.workhub.domain.auth.model.Login;
 import com.wally.workhub.domain.auth.service.AuthService;
 import io.jsonwebtoken.Jwts;
@@ -24,7 +25,7 @@ public class AuthController {
 
     private final AuthService authService;
 
-    private final static String KEY = "3CxtqcfIGzT0nagO/9Um7+UmRDPyKvsvNSXAQONj9DE=";
+    private final AppConfig appConfig;
 
     @PostMapping("/auth/login")
     public String login(@RequestBody Login login) {
@@ -33,7 +34,7 @@ public class AuthController {
 //        SecretKey key = Jwts.SIG.HS256.key().build();
 //        byte[] encoded = key.getEncoded();
 //        String strKey = Base64.getEncoder().encodeToString(encoded);
-        SecretKey secretKey = Keys.hmacShaKeyFor(Base64.getDecoder().decode(KEY));
+        SecretKey secretKey = Keys.hmacShaKeyFor(appConfig.getJwtKey());
 
         String jws = Jwts.builder()
                 .subject(String.valueOf(userId))
