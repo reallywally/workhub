@@ -13,3 +13,13 @@ Content-Type: application/json
 "email": "wally@naver.com",
 "password": "1111"
 }
+
+### 회원가입
+POST http://localhost:8080/auth/signup
+Content-Type: application/json
+
+{
+  "name": "wally",
+"email": "wally2@naver.com",
+"password": "1111"
+}

@@ -26,6 +26,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+	implementation 'org.springframework.security:spring-security-crypto' // 스프링 시큐리티 암호화
+	implementation 'org.bouncycastle:bcprov-jdk15on:1.70'  // 암호화에 필요한 라이브러리
 	// implementation "org.springframework.boot:spring-boot-starter-security"
 
 	// Querydsl
