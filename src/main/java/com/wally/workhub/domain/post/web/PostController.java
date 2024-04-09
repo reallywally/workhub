@@ -20,13 +20,6 @@ public class PostController {
 
     private final PostService postService;
 
-    @GetMapping("/foo")
-    public String foo(UserSession userSession) {
-        log.info("userId: {}", userSession.id);
-
-        return "foo";
-    }
-
     @GetMapping("/posts/{postId}")
     public PostResponse get(@PathVariable Long postId) {
         PostResponse postResponse = postService.get(postId);
