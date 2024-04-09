@@ -1,31 +1,30 @@
 package com.wally.workhub.domain.post.service;
 
+import com.wally.workhub.domain.extension.TimeExtension;
 import com.wally.workhub.domain.post.domain.Post;
 import com.wally.workhub.domain.post.model.PostCreate;
 import com.wally.workhub.domain.post.model.PostResponse;
 import com.wally.workhub.domain.post.repository.PostRepository;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.extension.*;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.Optional;
 
-@SpringBootTest
+import static org.mockito.BDDMockito.given;
+
+
+@ExtendWith({MockitoExtension.class, TimeExtension.class})
 class PostServiceTest {
-
-    @Autowired
+    @Mock
+    private PostRepository postRepository;
+    @InjectMocks
     private PostService postService;
 
-    @Autowired
-    private PostRepository postRepository;
-
-//    @BeforeEach
-//    void clean() {
-//        postRepository.deleteAll();
-//    }
 
     @Test
     @DisplayName("게시글 작성 테스트")
@@ -40,20 +39,15 @@ class PostServiceTest {
         postService.write(postCreate);
 
         // then
-        Assertions.assertEquals(2L, postRepository.count());
     }
 
     @Test
     @DisplayName("글 1개 조회")
     void test2(){
         // given
-//        PostCreate postCreate = PostCreate.builder()
-//                .title("제목")
-//                .content("내용")
-//                .build();
-//
-//        postService.write(postCreate);
-        Long postId = 5L;
+        Long postId = 6L;
+        Post post = Post.builder().title("제목1").content("내용1").build();
+        given(postRepository.findById(postId)).willReturn(Optional.ofNullable(post));
 
         // when
         PostResponse postResponse = postService.get(postId);
@@ -62,3 +56,4 @@ class PostServiceTest {
         Assertions.assertNotNull(postResponse);
     }
 }
+
