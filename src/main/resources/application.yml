@@ -7,6 +7,8 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update # none, create-drop(절대X), create(절대X), update, validate
+  session:
+    timeout: 30m
 
 workhub:
   hello: hello

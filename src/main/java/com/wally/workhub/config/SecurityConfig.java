@@ -1,11 +1,16 @@
 package com.wally.workhub.config;
 
+import com.wally.workhub.domain.user.model.AppUser;
+import com.wally.workhub.domain.user.service.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -30,6 +35,35 @@ public class SecurityConfig {
                                 .requestMatchers("/auth/**").permitAll()
                                 .anyRequest().authenticated()
                 )
+                .formLogin((formLogin) ->
+                        formLogin
+                                .loginPage("/auth/login")
+                                .loginProcessingUrl("/auth/login")
+                                .usernameParameter("username")
+                                .passwordParameter("password")
+                                .defaultSuccessUrl("/")
+                )
+                .rememberMe((rememberMe) ->
+                        rememberMe
+                                .rememberMeParameter("rememberMe")
+                                .rememberMeCookieName("remember-me")
+                                .alwaysRemember(false)
+                                .tokenValiditySeconds(60 * 60 * 24 * 14)
+                )
                 .build();
+    }
+
+    // 빈으로 등록되서 filter chain에 등록안해도 자동으로 들어감
+    @Bean
+    public UserDetailsService userDetailsService(UserRepository userRepository) {
+        return username -> {
+            AppUser appUser = userRepository.findByEmail(username);
+            return new UserPrincipal(appUser);
+        };
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return NoOpPasswordEncoder.getInstance();
     }
 }

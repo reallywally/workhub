@@ -1,13 +1,13 @@
 package com.wally.workhub.domain.user.service;
 
-import com.wally.workhub.domain.user.model.User;
+import com.wally.workhub.domain.user.model.AppUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User, Long> {
-    User findByUsername(String username);
-    User findByEmail(String email);
+public interface UserRepository extends JpaRepository<AppUser, Long> {
+    AppUser findByUsername(String username);
+    AppUser findByEmail(String email);
 
-    Optional<User> findByEmailAndPassword(String email, String password);
+    Optional<AppUser> findByEmailAndPassword(String email, String password);
 }

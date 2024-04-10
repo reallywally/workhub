@@ -1,7 +1,6 @@
 package com.wally.workhub.domain.user.web;
 
-import com.wally.workhub.domain.user.model.User;
-import com.wally.workhub.domain.user.service.UserService;
+import com.wally.workhub.domain.user.model.AppUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +14,7 @@ public class UserController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody User user) {
+    public ResponseEntity<?> registerUser(@RequestBody AppUser appUser) {
         try {
 
             return new ResponseEntity<>("User registered successfully", HttpStatus.CREATED);

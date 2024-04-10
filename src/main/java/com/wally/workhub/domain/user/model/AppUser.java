@@ -1,9 +1,6 @@
 package com.wally.workhub.domain.user.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,8 +11,9 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Table(name = "user")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User {
+public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,7 +23,7 @@ public class User {
     private LocalDateTime createdAt;
 
     @Builder
-    public User(String username, String email, String password) {
+    public AppUser(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;

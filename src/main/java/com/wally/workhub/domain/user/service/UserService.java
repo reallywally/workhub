@@ -1,7 +1,7 @@
 package com.wally.workhub.domain.user.service;
 
 
-import com.wally.workhub.domain.user.model.User;
+import com.wally.workhub.domain.user.model.AppUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,16 +12,16 @@ public class UserService {
     private final UserRepository userRepository;
 
 
-    public User registerUser(User user) {
-        if (userRepository.findByUsername(user.getUsername()) != null) {
+    public AppUser registerUser(AppUser appUser) {
+        if (userRepository.findByUsername(appUser.getUsername()) != null) {
             throw new RuntimeException("Username already exists");
         }
 
-        if (userRepository.findByEmail(user.getEmail()) != null) {
+        if (userRepository.findByEmail(appUser.getEmail()) != null) {
             throw new RuntimeException("Email already exists");
         }
 
 
-        return userRepository.save(user);
+        return userRepository.save(appUser);
     }
 }
