@@ -1,5 +1,8 @@
 package com.wally.workhub.config;
 
+import com.wally.workhub.config.handler.Http401Handler;
+import com.wally.workhub.config.handler.Http403Handler;
+import com.wally.workhub.config.handler.LoginFailHandler;
 import com.wally.workhub.domain.user.model.AppUser;
 import com.wally.workhub.domain.user.service.UserRepository;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.expression.WebExpressionAuthorizationManager;
 
 @Configuration
 @EnableWebSecurity
@@ -33,6 +37,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorizeRequests) ->
                         authorizeRequests
                                 .requestMatchers("/auth/**").permitAll()
+                                .requestMatchers("/user").hasAnyRole("ADMIN", "USER")
+                                .requestMatchers("/admin").hasRole("ADMIN")
+                                // .requestMatchers("/admin").access(new WebExpressionAuthorizationManager("hasRole('ADMIN')")) 이건 참
                                 .anyRequest().authenticated()
                 )
                 .formLogin((formLogin) ->
@@ -42,6 +49,7 @@ public class SecurityConfig {
                                 .usernameParameter("username")
                                 .passwordParameter("password")
                                 .defaultSuccessUrl("/")
+                                .failureHandler(new LoginFailHandler())
                 )
                 .rememberMe((rememberMe) ->
                         rememberMe
@@ -49,6 +57,11 @@ public class SecurityConfig {
                                 .rememberMeCookieName("remember-me")
                                 .alwaysRemember(false)
                                 .tokenValiditySeconds(60 * 60 * 24 * 14)
+                )
+                .exceptionHandling((exceptionHandling) ->
+                        exceptionHandling
+                                .accessDeniedHandler(new Http403Handler())
+                                .authenticationEntryPoint(new Http401Handler())
                 )
                 .build();
     }

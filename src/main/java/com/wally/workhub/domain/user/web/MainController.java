@@ -10,4 +10,14 @@ public class MainController {
     public String home() {
         return "Welcome to WorkHub";
     }
+
+    @GetMapping("/admin")
+    public String admin() {
+        return "Welcome Admin";
+    }
+
+    @GetMapping("/user")
+    public String user() {
+        return "Welcome User";
+    }
 }
