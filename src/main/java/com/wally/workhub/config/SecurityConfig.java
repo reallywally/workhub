@@ -7,6 +7,7 @@ import com.wally.workhub.domain.user.model.AppUser;
 import com.wally.workhub.domain.user.service.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -18,6 +19,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.expression.WebExpressionAuthorizationManager;
 
 @Configuration
+@EnableMethodSecurity
 @EnableWebSecurity
 public class SecurityConfig {
 
@@ -37,8 +39,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorizeRequests) ->
                         authorizeRequests
                                 .requestMatchers("/auth/**").permitAll()
-                                .requestMatchers("/user").hasAnyRole("ADMIN", "USER")
-                                .requestMatchers("/admin").hasRole("ADMIN")
+//                                .requestMatchers("/user").hasAnyRole("ADMIN", "USER")
+//                                .requestMatchers("/admin").hasRole("ADMIN")
                                 // .requestMatchers("/admin").access(new WebExpressionAuthorizationManager("hasRole('ADMIN')")) 이건 참
                                 .anyRequest().authenticated()
                 )
