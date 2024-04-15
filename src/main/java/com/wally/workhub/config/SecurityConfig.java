@@ -3,6 +3,7 @@ package com.wally.workhub.config;
 import com.wally.workhub.config.handler.Http401Handler;
 import com.wally.workhub.config.handler.Http403Handler;
 import com.wally.workhub.config.handler.LoginFailHandler;
+import com.wally.workhub.config.handler.LoginSuccessHandler;
 import com.wally.workhub.domain.user.model.AppUser;
 import com.wally.workhub.domain.user.service.UserRepository;
 import org.springframework.context.annotation.Bean;
@@ -52,6 +53,7 @@ public class SecurityConfig {
                                 .passwordParameter("password")
                                 .defaultSuccessUrl("/")
                                 .failureHandler(new LoginFailHandler())
+                                .successHandler(new LoginSuccessHandler())
                 )
                 .rememberMe((rememberMe) ->
                         rememberMe

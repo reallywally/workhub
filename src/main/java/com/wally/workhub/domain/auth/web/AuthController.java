@@ -19,12 +19,6 @@ public class AuthController {
 
     private final AppConfig appConfig;
 
-    @GetMapping("/auth/login")
-    public String login() {
-        return "login";
-    }
-
-
     @PostMapping("/auth/signup")
     public void signup(@RequestBody Signup signup) {
         authService.signUp(signup);
