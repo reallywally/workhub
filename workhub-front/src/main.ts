@@ -1,11 +1,11 @@
-import './assets/main.css'
-
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
 
+// css
+import './assets/main.css'
 import "normalize.css"
 
 // 엘리먼트 플러스

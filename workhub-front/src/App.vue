@@ -1,11 +1,25 @@
 <script setup lang="ts">
 import Header from "@/components/Header.vue";
 import Content from "@/components/Content.vue";
+import Menu from "@/components/Menu.vue";
 </script>
 
 <template>
-  <Header />
-  <Content />
+  <el-row>
+    <el-col :span="22" :offset="1">
+      <Header/>
+    </el-col>
+  </el-row>
+  <el-row>
+    <el-col :span="22" :offset="1">
+      <Menu/>
+    </el-col>
+  </el-row>
+  <el-row>
+    <el-col :span="22" :offset="1">
+      <Content/>
+    </el-col>
+  </el-row>
 </template>
 
 <style>
