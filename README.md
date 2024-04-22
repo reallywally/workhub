@@ -25,3 +25,6 @@
   - 상세 예외를 만들거나 매시지를 Enum으로 받아서 처리 
 - Etc
   - 프론트에서 수정할 필드만 보낼지, 전체를 보낼지는 협의
+
+### 프론트 참고 사이트
+- https://github.com/kailong321200875/vue-element-plus-admin
