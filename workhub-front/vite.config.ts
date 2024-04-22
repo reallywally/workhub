@@ -21,7 +21,7 @@ export default defineConfig({
     // api 요청을 8080 포트로 프록시
     proxy: {
       "/api": {
-        target: "http://127.0.0.1:8080",
+        target: "http://localhost:8080",
         rewrite: (path) => path.replace(/^\/api/, '')
       }
     }
