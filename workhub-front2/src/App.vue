@@ -1,47 +1,45 @@
-<script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <el-container style="height: 100vh;">
+    <el-aside width="200px">
+      <el-menu
+          :default-active="$route.path"
+          class="el-menu-vertical-demo"
+          @select="handleSelect">
+        <el-menu-item index="/home">
+          <span>Home</span>
+        </el-menu-item>
+        <el-menu-item index="/about">
+          <span>About</span>
+        </el-menu-item>
+        <el-menu-item index="/board">
+          <span>Board</span>
+        </el-menu-item>
+      </el-menu>
+    </el-aside>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+    <el-container>
+      <el-main>
+        <router-view></router-view>
+      </el-main>
+    </el-container>
+  </el-container>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+<script>
+export default {
+  name: 'App',
+  methods: {
+    handleSelect(key, keyPath) {
+      this.$router.push(key);
+    }
   }
+};
+</script>
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+<style>
+.el-menu-vertical-demo {
+  width: 100%;
+  height: 100%;
+  border-right: none;
 }
 </style>
