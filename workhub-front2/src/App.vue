@@ -1,10 +1,11 @@
 <template>
   <el-container style="height: 100vh;">
-    <el-aside width="200px">
+    <el-aside width="200px" >
       <el-menu
           :default-active="$route.path"
           class="el-menu-vertical-demo"
-          @select="handleSelect">
+          @select="handleSelect"
+      >
         <el-menu-item index="/home">
           <span>Home</span>
         </el-menu-item>
@@ -14,7 +15,11 @@
         <el-menu-item index="/board">
           <span>Board</span>
         </el-menu-item>
+        <el-menu-item index="/organization">
+          <span>Organization</span>
+        </el-menu-item>
       </el-menu>
+      <el-button type="primary" @click="logout">Logout</el-button>
     </el-aside>
 
     <el-container>
@@ -26,12 +31,27 @@
 </template>
 
 <script>
+import { useAuthStore } from './stores/auth';
+
 export default {
   name: 'App',
-  methods: {
-    handleSelect(key, keyPath) {
+  setup() {
+    const authStore = useAuthStore();
+
+    const handleSelect = (key, keyPath) => {
       this.$router.push(key);
-    }
+    };
+
+    const logout = () => {
+      authStore.logout();
+      this.$router.push('/login');
+    };
+
+    return {
+      authStore,
+      handleSelect,
+      logout
+    };
   }
 };
 </script>
