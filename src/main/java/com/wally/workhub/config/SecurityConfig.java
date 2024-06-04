@@ -39,7 +39,8 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorizeRequests) ->
                         authorizeRequests
-                                .requestMatchers("/auth/**").permitAll()
+                                .requestMatchers("/api/login").permitAll()
+                                // .requestMatchers("/auth/**").permitAll()
 //                                .requestMatchers("/user").hasAnyRole("ADMIN", "USER")
 //                                .requestMatchers("/admin").hasRole("ADMIN")
                                 // .requestMatchers("/admin").access(new WebExpressionAuthorizationManager("hasRole('ADMIN')")) 이건 참
