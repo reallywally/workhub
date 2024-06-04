@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import {createRouter, createWebHistory} from 'vue-router';
 import Home from '../views/Home.vue';
 import About from '../views/About.vue';
 import BoardView from '../views/BoardView.vue';
@@ -6,20 +6,18 @@ import BoardDetail from '../components/Board/BoardDetail.vue';
 import BoardForm from '../components/Board/BoardForm.vue';
 import OrganizationView from '../views/OrganizationView.vue';
 import LoginView from '../views/LoginView.vue';
-import { useAuthStore } from '../stores/auth';
+import {useAuthStore} from '@/stores/auth';
 
 const routes = [
-    { path: '/home', name: 'Home', component: Home },
-    { path: '/about', name: 'About', component: About },
-
-    { path: '/board', name: 'Board', component: BoardView },
-    { path: '/board/:id', name: 'BoardDetail', component: BoardDetail },
-    { path: '/board/new', name: 'BoardForm', component: BoardForm },
-    { path: '/board/edit/:id', name: 'EditBoardForm', component: BoardForm },
-
-    { path: '/organization', name: 'Organization', component: OrganizationView, meta: { requiresAuth: true } },
-    { path: '/login', name: 'Login', component: LoginView },
-    { path: '/', redirect: '/home' }
+    {path: '/', redirect: '/login'},
+    {path: '/home', name: 'Home', component: Home, meta: {requiresAuth: true}},
+    {path: '/about', name: 'About', component: About, meta: {requiresAuth: true}},
+    {path: '/board', name: 'Board', component: BoardView, meta: {requiresAuth: true}},
+    {path: '/board/:id', name: 'BoardDetail', component: BoardDetail, meta: {requiresAuth: true}},
+    {path: '/board/new', name: 'BoardForm', component: BoardForm, meta: {requiresAuth: true}},
+    {path: '/board/edit/:id', name: 'EditBoardForm', component: BoardForm, meta: {requiresAuth: true}},
+    {path: '/organization', name: 'Organization', component: OrganizationView, meta: {requiresAuth: true}},
+    {path: '/login', name: 'Login', component: LoginView},
 ];
 
 const router = createRouter({
@@ -27,7 +25,7 @@ const router = createRouter({
     routes
 });
 
-/*
+
 router.beforeEach(async (to, from, next) => {
     const authStore = useAuthStore();
     if (!authStore.user) {
@@ -35,10 +33,12 @@ router.beforeEach(async (to, from, next) => {
     }
     if (to.matched.some(record => record.meta.requiresAuth) && !authStore.user) {
         next('/login');
+    } else if (to.path === '/login' && authStore.user) {
+        next('/home');
     } else {
         next();
     }
 });
-*/
+
 
 export default router;

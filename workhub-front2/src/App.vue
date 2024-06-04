@@ -1,6 +1,6 @@
 <template>
   <el-container style="height: 100vh;">
-    <el-aside width="200px" >
+    <el-aside width="200px">
       <el-menu
           :default-active="$route.path"
           class="el-menu-vertical-demo"
@@ -31,7 +31,10 @@
 </template>
 
 <script>
-import { useAuthStore } from './stores/auth';
+import {useAuthStore} from './stores/auth';
+import {useRouter} from "vue-router";
+
+const router = useRouter();
 
 export default {
   name: 'App',
@@ -39,12 +42,12 @@ export default {
     const authStore = useAuthStore();
 
     const handleSelect = (key, keyPath) => {
-      this.$router.push(key);
+      router.push(key);
     };
 
     const logout = () => {
       authStore.logout();
-      this.$router.push('/login');
+      router.push('/login');
     };
 
     return {
