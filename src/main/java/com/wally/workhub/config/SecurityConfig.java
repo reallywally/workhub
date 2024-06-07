@@ -74,8 +74,8 @@ public class SecurityConfig {
     // 빈으로 등록되서 filter chain에 등록안해도 자동으로 들어감
     @Bean
     public UserDetailsService userDetailsService(UserRepository userRepository) {
-        return username -> {
-            AppUser appUser = userRepository.findByEmail(username);
+        return email -> {
+            AppUser appUser = userRepository.findByEmail(email);
             return new UserPrincipal(appUser);
         };
     }

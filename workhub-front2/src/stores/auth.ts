@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
+import AxiosHttpClient from '@/http/AxiosHttpClient';
+import * as path from "path";
 
 export const useAuthStore = defineStore('auth', {
     state: () => ({
@@ -8,10 +10,14 @@ export const useAuthStore = defineStore('auth', {
     }),
     actions: {
         async login(credentials) {
-            const response = await axios.post('/api/login', credentials);
-            this.user = response.data.user;
-            this.token = response.data.token;
-            localStorage.setItem('token', this.token);
+            const httpClient = new AxiosHttpClient()
+            console.log(credentials)
+            const response = httpClient.post({
+                path:'/api/auth/login',
+                body: credentials
+            })
+
+            console.log(response)
         },
         logout() {
             this.user = null;
