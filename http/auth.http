@@ -1,6 +1,9 @@
 ### 로그인
 
 POST http://localhost:8080/auth/login
-Content-Type:  application/x-www-form-urlencoded
+Content-Type:  application/json
 
-email=wally2@naver.com&password=1111
+{
+  "emai": "wally2@naver.com",
+  "password": 1111
+}
