@@ -1,11 +1,13 @@
 package com.wally.workhub.config;
 
 import com.wally.workhub.domain.user.model.AppUser;
+import lombok.Getter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import java.util.List;
 
+@Getter
 public class UserPrincipal extends User {
 
     private final Long userId;

@@ -17,8 +17,11 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        // UserSession 객체 생성
-        // 여기서는 임시로 1L로 설정
+        String accessToken = webRequest.getHeader("Authorization");
+        if(accessToken == null || accessToken.isEmpty()) {
+            throw new RuntimeException("인증이 필요합니다.");
+        }
+
         return new UserSession(1L);
     }
 }

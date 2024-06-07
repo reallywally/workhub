@@ -1,0 +1,6 @@
+### 로그인
+
+POST http://localhost:8080/auth/login
+Content-Type:  application/x-www-form-urlencoded
+
+email=wally2@naver.com&password=1111

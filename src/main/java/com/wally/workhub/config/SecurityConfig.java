@@ -50,7 +50,7 @@ public class SecurityConfig {
                         formLogin
                                 .loginPage("/auth/login")
                                 .loginProcessingUrl("/auth/login")
-                                .usernameParameter("username")
+                                .usernameParameter("email")
                                 .passwordParameter("password")
                                 .defaultSuccessUrl("/")
                                 .failureHandler(new LoginFailHandler())

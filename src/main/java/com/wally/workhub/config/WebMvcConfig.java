@@ -22,8 +22,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 //    }
 
     // AuthResolver 추가
-    @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-        resolvers.add(new AuthResolver());
-    }
+//    @Override
+//    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+//        resolvers.add(new AuthResolver());
+//    }
 }
