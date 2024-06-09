@@ -1,6 +1,7 @@
 package com.wally.workhub.config;
 
 import com.wally.workhub.config.filter.EmailPasswordAuthFilter;
+import com.wally.workhub.config.filter.JwtRequestFilter;
 import com.wally.workhub.config.handler.Http401Handler;
 import com.wally.workhub.config.handler.Http403Handler;
 import com.wally.workhub.config.handler.LoginFailHandler;
@@ -91,6 +92,11 @@ public class SecurityConfig {
         filter.setSecurityContextRepository(new HttpSessionSecurityContextRepository());
 
         return filter;
+    }
+
+    @Bean
+    public JwtRequestFilter jwtRequestFilter() {
+        return new JwtRequestFilter();
     }
 
     @Bean
