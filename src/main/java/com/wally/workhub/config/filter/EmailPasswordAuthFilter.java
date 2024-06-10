@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -36,7 +37,7 @@ public class EmailPasswordAuthFilter extends AbstractAuthenticationProcessingFil
         return this.getAuthenticationManager().authenticate(token);
     }
 
-    @Getter
+    @Data
     private static class EmailPassword{
         private String email;
         private String password;

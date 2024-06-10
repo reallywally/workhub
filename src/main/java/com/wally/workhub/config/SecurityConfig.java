@@ -6,8 +6,8 @@ import com.wally.workhub.config.handler.Http401Handler;
 import com.wally.workhub.config.handler.Http403Handler;
 import com.wally.workhub.config.handler.LoginFailHandler;
 import com.wally.workhub.config.handler.LoginSuccessHandler;
-import com.wally.workhub.domain.user.model.AppUser;
-import com.wally.workhub.domain.user.service.UserRepository;
+import com.wally.workhub.config.utils.JwtUtil;
+import com.wally.workhub.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +19,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -31,7 +30,8 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-    private final UserRepository userRepository;
+    private final UserService userService;
+    private final JwtUtil jwtUtil;
 
     // 시큐리티 인증 무시
     @Bean
@@ -87,7 +87,7 @@ public class SecurityConfig {
     public EmailPasswordAuthFilter emailPasswordAuthFilter() throws Exception {
         EmailPasswordAuthFilter filter = new EmailPasswordAuthFilter("/auth/login");
         filter.setAuthenticationManager(authenticationManager());
-        filter.setAuthenticationSuccessHandler(new LoginSuccessHandler());
+        filter.setAuthenticationSuccessHandler(new LoginSuccessHandler(jwtUtil));
         filter.setAuthenticationFailureHandler(new LoginFailHandler());
         filter.setSecurityContextRepository(new HttpSessionSecurityContextRepository());
 
@@ -102,20 +102,20 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(userDetailsService(userRepository));
+        provider.setUserDetailsService(userService);
         provider.setPasswordEncoder(passwordEncoder());
 
         return new ProviderManager(provider);
     }
 
     // 빈으로 등록되서 filter chain에 등록안해도 자동으로 들어감
-    @Bean
-    public UserDetailsService userDetailsService(UserRepository userRepository) {
-        return email -> {
-            AppUser appUser = userRepository.findByEmail(email);
-            return new UserPrincipal(appUser);
-        };
-    }
+//    @Bean
+//    public UserDetailsService userDetailsService(UserRepository userRepository) {
+//        return email -> {
+//            AppUser appUser = userRepository.findByEmail(email);
+//            return new UserPrincipal(appUser);
+//        };
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
