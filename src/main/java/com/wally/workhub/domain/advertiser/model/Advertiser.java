@@ -1,15 +1,15 @@
 package com.wally.workhub.domain.advertiser.model;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Comment;
 
 @Entity
 @Getter
 @Table(name = "advertiser")
+@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class Advertiser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -2,6 +2,8 @@ package com.wally.workhub.domain.advertiser.web;
 
 import com.wally.workhub.domain.advertiser.model.dto.AdvertiserCreate;
 import com.wally.workhub.domain.advertiser.model.dto.AdvertiserEdit;
+import com.wally.workhub.domain.advertiser.model.dto.AdvertiserResponse;
+import com.wally.workhub.domain.advertiser.service.AdvertiserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AdvertiserController {
 
+    private final AdvertiserService advertiserService;
+
     @GetMapping("/advertisers")
     public String getAdvertisers() {
         return "광고주 목록 조회";
@@ -18,6 +22,8 @@ public class AdvertiserController {
 
     @GetMapping("/advertisers/{advertiserId}")
     public String getAdvertiserById(@PathVariable Long advertiserId) {
+        AdvertiserResponse advertiser = advertiserService.findAdvertiserById(advertiserId);
+
         return "광고주 단건 조회";
     }
 
