@@ -2,7 +2,7 @@ package com.wally.workhub.domain.task.web;
 
 import com.wally.workhub.domain.task.model.dto.TaskCreate;
 import com.wally.workhub.domain.task.model.dto.TaskEdit;
-import com.wally.workhub.domain.task.service.TaskRequestService;
+import com.wally.workhub.domain.task.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-public class TaskRequestController {
+public class TaskController {
 
-    private final TaskRequestService taskRequestService;
+    private final TaskService taskService;
 
     @GetMapping("/tasks")
     public String getTasks() {

@@ -1,11 +1,11 @@
 package com.wally.workhub.domain.task.model;
 
+import com.wally.workhub.domain.task.model.enums.TaskProgressStage;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Comment;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -44,11 +44,15 @@ public class Task {
 
     @Column
     @Comment("진행 단계")
-    private String progressStage;
+    private TaskProgressStage progressStage;
 
     @Column
     @Comment("상태")
     private String status;
+
+    @Column
+    @Comment("마감일")
+    private LocalDateTime deadline;
 
     @Column
     @Comment("등록일")

@@ -1,5 +1,6 @@
 package com.wally.workhub.domain.task.model;
 
+import com.wally.workhub.domain.task.model.enums.TaskManagerCharge;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Comment;
@@ -21,10 +22,10 @@ public class TaskManager {
 
     @Column
     @Comment("담당 유형")
-    private String chargeType;
+    private TaskManagerCharge chargeType;
 
     @Column
     @Comment("담당자 ID")
-    private Long managerId;
+    private Long userId;
 
 }
