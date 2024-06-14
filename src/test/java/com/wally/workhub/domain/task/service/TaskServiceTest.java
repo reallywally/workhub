@@ -1,7 +1,7 @@
 package com.wally.workhub.domain.task.service;
 
 import com.wally.workhub.domain.task.TaskTestUtils;
-import com.wally.workhub.domain.task.model.dto.TaskCreate;
+import com.wally.workhub.domain.task.model.TaskCreate;
 import com.wally.workhub.domain.task.repository.TaskManagerRepository;
 import com.wally.workhub.domain.task.repository.TaskRepository;
 import org.junit.jupiter.api.DisplayName;

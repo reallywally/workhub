@@ -1,4 +1,4 @@
-package com.wally.workhub.domain.task.model.dto;
+package com.wally.workhub.domain.task.model;
 
 
 import lombok.Data;

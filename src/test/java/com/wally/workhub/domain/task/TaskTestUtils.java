@@ -1,10 +1,10 @@
 package com.wally.workhub.domain.task;
 
-import com.wally.workhub.domain.task.model.Task;
-import com.wally.workhub.domain.task.model.dto.TaskCreate;
-import com.wally.workhub.domain.task.model.dto.TaskManagerCreate;
-import com.wally.workhub.domain.task.model.enums.TaskManagerCharge;
-import com.wally.workhub.domain.task.model.enums.TaskProgressStage;
+import com.wally.workhub.domain.task.domain.Task;
+import com.wally.workhub.domain.task.model.TaskCreate;
+import com.wally.workhub.domain.task.model.TaskManagerCreate;
+import com.wally.workhub.enums.TaskManagerCharge;
+import com.wally.workhub.enums.TaskProgressStage;
 
 import java.time.LocalDateTime;
 import java.util.List;

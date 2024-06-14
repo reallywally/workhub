@@ -1,6 +1,6 @@
-package com.wally.workhub.domain.task.model;
+package com.wally.workhub.domain.task.domain;
 
-import com.wally.workhub.domain.task.model.enums.TaskManagerCharge;
+import com.wally.workhub.enums.TaskManagerCharge;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Comment;

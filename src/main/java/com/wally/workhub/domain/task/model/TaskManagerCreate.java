@@ -1,6 +1,6 @@
-package com.wally.workhub.domain.task.model.dto;
+package com.wally.workhub.domain.task.model;
 
-import com.wally.workhub.domain.task.model.enums.TaskManagerCharge;
+import com.wally.workhub.enums.TaskManagerCharge;
 import lombok.Builder;
 import lombok.Data;
 

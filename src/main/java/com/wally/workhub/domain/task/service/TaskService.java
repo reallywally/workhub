@@ -1,9 +1,9 @@
 package com.wally.workhub.domain.task.service;
 
-import com.wally.workhub.domain.task.model.Task;
-import com.wally.workhub.domain.task.model.TaskManager;
-import com.wally.workhub.domain.task.model.dto.TaskCreate;
-import com.wally.workhub.domain.task.model.dto.TaskManagerCreate;
+import com.wally.workhub.domain.task.domain.Task;
+import com.wally.workhub.domain.task.domain.TaskManager;
+import com.wally.workhub.domain.task.model.TaskCreate;
+import com.wally.workhub.domain.task.model.TaskManagerCreate;
 import com.wally.workhub.domain.task.repository.TaskManagerRepository;
 import com.wally.workhub.domain.task.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;

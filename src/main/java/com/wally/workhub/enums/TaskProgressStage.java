@@ -1,4 +1,4 @@
-package com.wally.workhub.domain.task.model.enums;
+package com.wally.workhub.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
