@@ -5,6 +5,7 @@ import com.wally.workhub.domain.user.model.AppUser;
 import com.wally.workhub.domain.user.service.UserRepository;
 import com.wally.workhub.exception.InvalidRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
 
     public void signUp(Signup signup) {
-        AppUser findAppUser = userRepository.findByEmail(signup.getEmail());
+        AppUser findAppUser = userRepository.findByEmail(signup.getEmail()).orElseThrow(() ->  new UsernameNotFoundException("User not found"));
 
         if (findAppUser != null) {
             throw new InvalidRequest("email", "Email already exists");
