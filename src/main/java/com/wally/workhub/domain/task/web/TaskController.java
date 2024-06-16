@@ -3,6 +3,7 @@ package com.wally.workhub.domain.task.web;
 import com.wally.workhub.domain.task.model.TaskCreate;
 import com.wally.workhub.domain.task.model.TaskEdit;
 import com.wally.workhub.domain.task.service.TaskService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class TaskController {
     }
 
     @PostMapping("/tasks")
-    public String createTasks(@RequestBody TaskCreate taskCreate) {
+    public String createTasks(@RequestBody @Valid TaskCreate taskCreate) {
         return "업무 요청 등록";
     }
 
