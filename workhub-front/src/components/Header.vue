@@ -1,14 +1,29 @@
 <template>
-  <div>
-    <h1>Wow!!!</h1>
+  <div class="header">
+    <img src="/images/logo.png" alt="logo" class="logo"/>
+    <div class="title">호돌맨 블로그</div>
   </div>
 </template>
 
 <script setup lang="ts"></script>
 
-<style scoped>
+<style scoped lang="scss">
 .header {
-  padding: 0;
   height: 60px;
+  margin: 1rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  width: 52px;
+  object-fit: cover;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 300;
+  margin-left: 5px;
 }
 </style>

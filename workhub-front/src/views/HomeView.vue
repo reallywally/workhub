@@ -1,140 +1,75 @@
 <script setup lang="ts">
-import axios from "axios";
-import {ref} from "vue";
-import {useRouter} from "vue-router";
+import type Post from '@/entity/post/Post'
+import { onMounted, reactive } from 'vue'
+import { container } from 'tsyringe'
+import PostRepository from '@/repository/PostRepository'
+import Paging from '@/entity/data/Paging'
+import PostComponent from '@/components/PostComponent.vue'
 
-const router = useRouter();
+const POST_REPOSITORY = container.resolve(PostRepository)
 
-const posts = ref([]);
+type StateType = {
+  postList: Paging<Post>
+}
 
-axios.get("/api/posts?page=1&size=5").then((response) => {
-  response.data.forEach((r: any) => {
-    posts.value.push(r);
-  });
-});
+const state = reactive<StateType>({
+  postList: new Paging<Post>(),
+})
+
+function getList(page = 1) {
+  POST_REPOSITORY.getList(page).then((postList) => {
+    state.postList = postList
+  })
+}
+
+onMounted(() => {
+  getList()
+})
 </script>
 
 <template>
-  <el-container class="layout-container-demo">
-    <!-- 왼쪽 메뉴 -->
-    <el-aside width="200px">
-      <el-scrollbar>
-        <el-menu>
-          <el-sub-menu index="1">
-            <template #title>
-              <el-icon>
-                <message/>
-              </el-icon>
-              Navigator One
-            </template>
-            <el-menu-item-group>
-              <template #title>Group 1</template>
-              <el-menu-item index="1-1">Option 1</el-menu-item>
-              <el-menu-item index="1-2">Option 2</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group title="Group 2">
-              <el-menu-item index="1-3">Option 3</el-menu-item>
-            </el-menu-item-group>
-            <el-sub-menu index="1-4">
-              <template #title>Option4</template>
-              <el-menu-item index="1-4-1">Option 4-1</el-menu-item>
-            </el-sub-menu>
-          </el-sub-menu>
-          <el-sub-menu index="2">
-            <template #title>
-              <el-icon>
-                <icon-menu/>
-              </el-icon>
-              Navigator Two
-            </template>
-            <el-menu-item-group>
-              <template #title>Group 1</template>
-              <el-menu-item index="2-1">Option 1</el-menu-item>
-              <el-menu-item index="2-2">Option 2</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group title="Group 2">
-              <el-menu-item index="2-3">Option 3</el-menu-item>
-            </el-menu-item-group>
-            <el-sub-menu index="2-4">
-              <template #title>Option 4</template>
-              <el-menu-item index="2-4-1">Option 4-1</el-menu-item>
-            </el-sub-menu>
-          </el-sub-menu>
-          <el-sub-menu index="3">
-            <template #title>
-              <el-icon>
-                <setting/>
-              </el-icon>
-              Navigator Three
-            </template>
-            <el-menu-item-group>
-              <template #title>Group 1</template>
-              <el-menu-item index="3-1">Option 1</el-menu-item>
-              <el-menu-item index="3-2">Option 2</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group title="Group 2">
-              <el-menu-item index="3-3">Option 3</el-menu-item>
-            </el-menu-item-group>
-            <el-sub-menu index="3-4">
-              <template #title>Option 4</template>
-              <el-menu-item index="3-4-1">Option 4-1</el-menu-item>
-            </el-sub-menu>
-          </el-sub-menu>
-        </el-menu>
-      </el-scrollbar>
-    </el-aside>
+  <div class="content">
+    <span class="totalCount">게시글 수: {{ state.postList.totalCount }}</span>
 
-    <el-container>
-      <!-- 상단 헤더 -->
-      <el-header style="text-align: right; font-size: 12px">
-        <div class="toolbar">
-          <el-dropdown>
-            <el-icon style="margin-right: 8px; margin-top: 1px">
-              <setting/>
-            </el-icon>
-            <template #dropdown>
-              <el-dropdown-menu>
-                <el-dropdown-item>View</el-dropdown-item>
-                <el-dropdown-item>Add</el-dropdown-item>
-                <el-dropdown-item>Delete</el-dropdown-item>
-              </el-dropdown-menu>
-            </template>
-          </el-dropdown>
-          <span>Tom</span>
-        </div>
-      </el-header>
+    <ul class="posts">
+      <li v-for="post in state.postList.items" :key="post.id">
+        <PostComponent :post="post" />
+      </li>
+    </ul>
 
-      <!-- 메인 -->
-      <el-main>
-        <el-scrollbar>
-          메인 컨텐츠
-        </el-scrollbar>
-      </el-main>
-    </el-container>
-  </el-container>
+    <div style="width: 100%; display: flex; justify-content: center">
+      <el-pagination
+        :background="true"
+        layout="prev, pager, next"
+        v-model:current-page="state.postList.page"
+        :total="state.postList.totalCount"
+        :default-page-size="3"
+        @current-change="(page: number) => getList(page)"
+      />
+    </div>
+  </div>
 </template>
 
 <style scoped lang="scss">
-.layout-container-demo .el-header {
-  position: relative;
-  background-color: var(--el-color-primary-light-7);
-  color: var(--el-text-color-primary);
+.content {
+  padding: 0 1rem 0 1rem;
+  margin-bottom: 2rem;
 }
-.layout-container-demo .el-aside {
-  color: var(--el-text-color-primary);
-  background: var(--el-color-primary-light-8);
+
+.totalCount {
+  font-size: 0.88rem;
 }
-.layout-container-demo .el-menu {
-  border-right: none;
-}
-.layout-container-demo .el-main {
+
+.posts {
+  list-style: none;
   padding: 0;
-}
-.layout-container-demo .toolbar {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  right: 20px;
+
+  li {
+    margin-bottom: 2.4rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }
 </style>

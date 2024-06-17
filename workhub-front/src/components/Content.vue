@@ -1,13 +1,17 @@
-<template>
-  <el-main class="content">
-        <router-view />
-  </el-main>
-</template>
-
 <script setup lang="ts"></script>
 
-<style scoped>
-.content {
-  height: calc(100vh - 60px);
+<template>
+  <div class="main">
+    <router-view />
+  </div>
+</template>
+
+<style scoped lang="scss">
+.main {
+  margin-top: 1.4rem;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1200px;
 }
 </style>
