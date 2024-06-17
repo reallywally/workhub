@@ -18,9 +18,9 @@ public class EmailPasswordAuthFilter extends AbstractAuthenticationProcessingFil
 
     private final ObjectMapper objectMapper;
 
-    public EmailPasswordAuthFilter(String defaultFilterProcessesUrl) {
+    public EmailPasswordAuthFilter(String defaultFilterProcessesUrl, ObjectMapper objectMapper) {
         super(defaultFilterProcessesUrl);
-        this.objectMapper = new ObjectMapper();
+        this.objectMapper = objectMapper;
     }
 
     @Override

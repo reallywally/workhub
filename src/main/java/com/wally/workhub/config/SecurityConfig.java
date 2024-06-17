@@ -1,5 +1,6 @@
 package com.wally.workhub.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wally.workhub.config.filter.EmailPasswordAuthFilter;
 import com.wally.workhub.config.filter.JwtRequestFilter;
 import com.wally.workhub.config.handler.Http401Handler;
@@ -31,7 +32,7 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final UserService userService;
-    private final JwtUtil jwtUtil;
+    private final ObjectMapper objectMapper;
 
     // 시큐리티 인증 무시
     @Bean
@@ -55,17 +56,6 @@ public class SecurityConfig {
                                         // .requestMatchers("/admin").access(new WebExpressionAuthorizationManager("hasRole('ADMIN')")) 이건 참
                                         .anyRequest().authenticated()
                 )
-                // 폼 로그인은 안써서 주척 처리
-//                .formLogin((formLogin) ->
-//                        formLogin
-//                                .loginPage("/auth/login")
-//                                .loginProcessingUrl("/auth/login")
-//                                .usernameParameter("email")
-//                                .passwordParameter("password")
-//                                .defaultSuccessUrl("/")
-//                                .failureHandler(new LoginFailHandler())
-//                                .successHandler(new LoginSuccessHandler())
-//                )
                 // custom login filter
                 .addFilterBefore(emailPasswordAuthFilter(), UsernamePasswordAuthenticationFilter.class)
                 .rememberMe((rememberMe) ->
@@ -85,19 +75,19 @@ public class SecurityConfig {
 
     @Bean
     public EmailPasswordAuthFilter emailPasswordAuthFilter() throws Exception {
-        EmailPasswordAuthFilter filter = new EmailPasswordAuthFilter("/auth/login");
+        EmailPasswordAuthFilter filter = new EmailPasswordAuthFilter("/auth/login", objectMapper);
         filter.setAuthenticationManager(authenticationManager());
-        filter.setAuthenticationSuccessHandler(new LoginSuccessHandler(jwtUtil));
+        filter.setAuthenticationSuccessHandler(new LoginSuccessHandler(objectMapper));
         filter.setAuthenticationFailureHandler(new LoginFailHandler());
         filter.setSecurityContextRepository(new HttpSessionSecurityContextRepository());
 
         return filter;
     }
 
-    @Bean
-    public JwtRequestFilter jwtRequestFilter() {
-        return new JwtRequestFilter();
-    }
+//    @Bean
+//    public JwtRequestFilter jwtRequestFilter() {
+//        return new JwtRequestFilter();
+//    }
 
     @Bean
     public AuthenticationManager authenticationManager() {

@@ -1,8 +1,8 @@
 package com.wally.workhub.config.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.security.auth.UserPrincipal;
 import com.wally.workhub.common.ErrorResponse;
+import com.wally.workhub.config.UserPrincipal;
 import com.wally.workhub.config.utils.JwtUtil;
 import com.wally.workhub.domain.user.model.AppUser;
 import com.wally.workhub.domain.user.service.UserService;
@@ -25,26 +25,14 @@ import java.nio.charset.StandardCharsets;
 @RequiredArgsConstructor
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
-    private final JwtUtil jwtUtil;
-
-    // private final UserService userDetailsService;
+    private final ObjectMapper objectMapper;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        log.info("로그인성공");
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        String username = userDetails.getUsername();
-        // UserDetails findUser = userDetailsService.loadUserByUsername(username); // Load additional user details
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+        String username = userPrincipal.getUsername();
 
-        String jwt = jwtUtil.generateToken(userDetails, userDetails.getUsername());
-
-        Cookie cookie = new Cookie("jwt", jwt);
-        cookie.setHttpOnly(true);
-        cookie.setSecure(true); // HTTPS에서만 전송
-        cookie.setPath("/");
-        cookie.setMaxAge(60 * 60 * 10); // 10시간 유효
-
-        response.addCookie(cookie);
+        log.info("[인증성공] user={}", username);
         response.setStatus(HttpServletResponse.SC_OK);
         response.setCharacterEncoding(StandardCharsets.UTF_8.name());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);

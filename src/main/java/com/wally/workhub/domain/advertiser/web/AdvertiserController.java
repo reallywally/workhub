@@ -37,7 +37,7 @@ public class AdvertiserController {
         return "광고주 수정";
     }
 
-    @PatchMapping("/advertisers/{advertiserId}")
+    @DeleteMapping("/advertisers/{advertiserId}")
     public String deleteAdvertiser(@PathVariable Long advertiserId) {
         return "광고주 삭제";
     }
