@@ -1,32 +1,40 @@
 <template>
   <div class="login-container">
     <h1>Login</h1>
-    <LoginForm @login="handleLogin" />
+
+    <el-form @submit.prevent="handleLogin">
+      <el-form-item>
+        <el-input v-model="email" placeholder="email"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-input type="password" v-model="password" placeholder="Password"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" native-type="submit">Login</el-button>
+      </el-form-item>
+    </el-form>
   </div>
 </template>
 
-<script>
-import LoginForm from '../components/Auth/LoginForm.vue';
-import { useAuthStore } from '../stores/auth';
-import { useRouter } from 'vue-router';
 
-export default {
-  components: {
-    LoginForm
-  },
-  setup() {
-    const authStore = useAuthStore();
-    const router = useRouter();
+<script setup>
+import {ref} from 'vue';
+import {useRouter} from 'vue-router';
+import {useAuthStore} from '../stores/auth';
+import {ElMessage} from 'element-plus';
 
-    const handleLogin = async (credentials) => {
-      await authStore.login(credentials);
-      router.push('/home');
-    };
+const email = ref('');
+const password = ref('');
+const router = useRouter();
+const authStore = useAuthStore();
 
-    return {
-      handleLogin
-    };
-  }
+const handleLogin = () => {
+  const credentials = {
+    email: email.value,
+    password: password.value
+  };
+  authStore.login(credentials);
+  router.push('/');
 };
 </script>
 
