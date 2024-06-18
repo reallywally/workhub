@@ -1,7 +1,5 @@
 package com.wally.workhub.domain.advertiser.web;
 
-import com.wally.workhub.domain.advertiser.model.dto.AdvertiserCreate;
-import com.wally.workhub.domain.advertiser.model.dto.AdvertiserEdit;
 import com.wally.workhub.domain.advertiser.model.dto.ProjectCreate;
 import com.wally.workhub.domain.advertiser.model.dto.ProjectEdit;
 import lombok.RequiredArgsConstructor;

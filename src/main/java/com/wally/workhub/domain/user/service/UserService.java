@@ -3,6 +3,8 @@ package com.wally.workhub.domain.user.service;
 
 import com.wally.workhub.config.UserPrincipal;
 import com.wally.workhub.domain.user.model.AppUser;
+import com.wally.workhub.domain.user.model.UserResponse;
+import com.wally.workhub.exception.UserNotFound;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,7 +26,6 @@ public class UserService implements UserDetailsService {
             throw new RuntimeException("Email already exists");
         }
 
-
         return userRepository.save(appUser);
     }
 
@@ -33,6 +34,13 @@ public class UserService implements UserDetailsService {
         AppUser appUser = userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         return new UserPrincipal(appUser);
+    }
+
+    public UserResponse getUserProfile(Long userId) {
+        AppUser user = userRepository.findById(userId)
+                .orElseThrow(UserNotFound::new);
+
+        return new UserResponse(user);
     }
 
 }

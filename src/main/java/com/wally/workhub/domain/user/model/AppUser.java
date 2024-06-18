@@ -20,15 +20,15 @@ public class AppUser {
     private String username;
     private String email;
     private String password;
-    private int age;
+    private String name;
     private LocalDateTime createdAt;
 
     @Builder
-    public AppUser(String username, String email, String password, int age) {
+    public AppUser(String username, String email, String password, String name) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.age = age;
+        this.name = name;
     }
 
     public void setPassword(String encodePassword) {

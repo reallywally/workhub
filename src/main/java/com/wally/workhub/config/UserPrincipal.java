@@ -12,12 +12,10 @@ public class UserPrincipal extends User {
 
     private final Long userId;
     private final String name;
-    private final int age;
 
     public UserPrincipal(AppUser appUser) {
         super(appUser.getEmail(), appUser.getPassword(), List.of(new SimpleGrantedAuthority("ROLE_ADMIN")));
         this.userId = appUser.getId();
         this.name = appUser.getUsername();
-        this.age = appUser.getAge();
     }
 }
