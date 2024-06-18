@@ -19,19 +19,7 @@ export const useAuthStore = defineStore('auth', {
             this.isAuthenticated = true;
         },
         logout() {
-            this.user = null;
-            this.token = null;
-            localStorage.removeItem('token');
+            this.isAuthenticated = false;
         },
-        async checkAuth() {
-            const token = localStorage.getItem('token');
-            if (token) {
-                const response = await axios.get('/api/me', {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
-                this.user = response.data;
-                this.token = token;
-            }
-        }
     }
 });
