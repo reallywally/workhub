@@ -29,6 +29,7 @@ public class AdvertiserController {
 
     @PostMapping("/advertisers")
     public String createAdvertiser(@RequestBody AdvertiserCreate advertiserCreate) {
+        advertiserService.createAdvertiser(advertiserCreate);
         return "광고주 등록";
     }
 

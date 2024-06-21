@@ -1,6 +1,7 @@
 package com.wally.workhub.domain.advertiser.service;
 
 import com.wally.workhub.domain.advertiser.model.Advertiser;
+import com.wally.workhub.domain.advertiser.model.dto.AdvertiserCreate;
 import com.wally.workhub.domain.advertiser.model.dto.AdvertiserResponse;
 import com.wally.workhub.domain.advertiser.repository.AdvertiserRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,11 +27,17 @@ public class AdvertiserService {
                 .build();
     }
 
-    public void createAdvertiser(Advertiser advertiser) {
-        Optional<Advertiser> findAdvertiser = advertiserRepository.findByBusinessNumber(advertiser.getBusinessNumber());
+    public void createAdvertiser(AdvertiserCreate advertiserCreate) {
+        Optional<Advertiser> findAdvertiser = advertiserRepository.findByBusinessNumber(advertiserCreate.getBusinessNumber());
         if (findAdvertiser.isPresent()) {
             throw new IllegalArgumentException("이미 존재하는 사업자 번호입니다.");
         }
+
+        Advertiser advertiser = Advertiser.builder()
+                .businessNumber(advertiserCreate.getBusinessNumber())
+                .businessName(advertiserCreate.getBusinessName())
+                .advertiserName(advertiserCreate.getAdvertiserName())
+                .build();
 
         advertiserRepository.save(advertiser);
     }

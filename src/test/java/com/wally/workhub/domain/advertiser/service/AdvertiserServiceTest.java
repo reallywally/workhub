@@ -2,6 +2,7 @@ package com.wally.workhub.domain.advertiser.service;
 
 import com.wally.workhub.domain.advertiser.AdvertiserTestUtils;
 import com.wally.workhub.domain.advertiser.model.Advertiser;
+import com.wally.workhub.domain.advertiser.model.dto.AdvertiserCreate;
 import com.wally.workhub.domain.advertiser.model.dto.AdvertiserResponse;
 import com.wally.workhub.domain.advertiser.repository.AdvertiserRepository;
 import org.junit.jupiter.api.Assertions;
@@ -39,10 +40,11 @@ class AdvertiserServiceTest {
     @Test
     void createAdvertiserFail() {
         Advertiser advertiser = AdvertiserTestUtils.generateAdvertiser();
+        AdvertiserCreate advertiserCreate = AdvertiserTestUtils.generateAdvertiserCreate();
         given(advertiserRepository.findByBusinessNumber(any(String.class))).willReturn(Optional.of(advertiser));
 
         try {
-            advertiserService.createAdvertiser(advertiser);
+            advertiserService.createAdvertiser(advertiserCreate);
         } catch (IllegalArgumentException e) {
             Assertions.assertEquals("이미 존재하는 사업자 번호입니다.", e.getMessage());
         }
