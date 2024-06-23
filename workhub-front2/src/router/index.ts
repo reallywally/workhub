@@ -3,7 +3,10 @@ import Home from '../views/Home.vue';
 import Login from '../views/Login.vue';
 import Board from '../views/Board.vue';
 import Advertiser from '../views/Advertiser.vue';
+import AdvertiserForm from '../components/Advertiser/AdvertiserForm.vue';
+import AdvertiserEdit from '../components/Advertiser/AdvertiserEdit.vue';
 import { useAuthStore } from '../stores/auth';
+import advertiserForm from "@/components/Advertiser/AdvertiserForm.vue";
 
 const routes = [
     {
@@ -17,12 +20,25 @@ const routes = [
                 component: Board,
                 meta: { requiresAuth: true },
             },
+            // Advertiser
             {
                 path: 'advertiser',
                 name: 'Advertiser',
                 component: Advertiser,
                 meta: { requiresAuth: true },
             },
+            {
+                path: 'advertiser/new',
+                name: 'advertiserNew',
+                component: AdvertiserForm,
+                meta: { requiresAuth: true },
+            },
+            {
+                path: 'advertiser/:id',
+                name: 'AdvertiserEdit',
+                component: AdvertiserEdit,
+                meta: {requiresAuth: true},
+            }
         ],
     },
     {
