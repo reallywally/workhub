@@ -1,10 +1,18 @@
 <template>
   <div>
     <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
-      <el-menu-item index="1">Home</el-menu-item>
-      <el-menu-item index="2">Board</el-menu-item>
+      <el-menu-item index="1">
+        <router-link to="/">Home</router-link>
+      </el-menu-item>
+      <el-menu-item index="2">
+        <router-link to="/board">Board</router-link>
+      </el-menu-item>
+      <el-menu-item index="3">
+        <router-link to="/advertiser">Advertiser</router-link>
+      </el-menu-item>
+      <el-button @click="logout">Logout</el-button>
     </el-menu>
-    <el-button @click="logout">Logout</el-button>
+    <router-view></router-view>
   </div>
 </template>
 

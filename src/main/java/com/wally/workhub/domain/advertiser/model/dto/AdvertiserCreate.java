@@ -1,7 +1,7 @@
 package com.wally.workhub.domain.advertiser.model.dto;
 
 
-`import lombok.Builder;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

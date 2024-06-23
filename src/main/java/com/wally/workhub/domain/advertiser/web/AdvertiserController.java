@@ -6,7 +6,10 @@ import com.wally.workhub.domain.advertiser.model.dto.AdvertiserResponse;
 import com.wally.workhub.domain.advertiser.service.AdvertiserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -16,8 +19,8 @@ public class AdvertiserController {
     private final AdvertiserService advertiserService;
 
     @GetMapping("/advertisers")
-    public String getAdvertisers() {
-        return "광고주 목록 조회";
+    public List<AdvertiserResponse> getAdvertisers(Pageable pageable) {
+        return advertiserService.getList(pageable);
     }
 
     @GetMapping("/advertisers/{advertiserId}")

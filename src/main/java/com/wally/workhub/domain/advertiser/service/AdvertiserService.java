@@ -5,14 +5,29 @@ import com.wally.workhub.domain.advertiser.model.dto.AdvertiserCreate;
 import com.wally.workhub.domain.advertiser.model.dto.AdvertiserResponse;
 import com.wally.workhub.domain.advertiser.repository.AdvertiserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class AdvertiserService {
     private final AdvertiserRepository advertiserRepository;
+
+    public List<AdvertiserResponse> getList(Pageable pageable) {
+        // Pageable pageable = PageRequest.of(page, 5);
+
+        return advertiserRepository.findAll(pageable).stream()
+                .map(advertiser -> AdvertiserResponse.builder()
+                        .businessNumber(advertiser.getBusinessNumber())
+                        .businessName(advertiser.getBusinessName())
+                        .advertiserName(advertiser.getAdvertiserName())
+                        .build())
+                .collect(Collectors.toList());
+    }
 
     public AdvertiserResponse findAdvertiserById(Long advertiserId) {
         Optional<Advertiser> advertiser = advertiserRepository.findById(advertiserId);
