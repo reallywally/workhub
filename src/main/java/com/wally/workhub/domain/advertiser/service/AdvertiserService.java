@@ -3,6 +3,7 @@ package com.wally.workhub.domain.advertiser.service;
 import com.wally.workhub.common.PagingResponse;
 import com.wally.workhub.domain.advertiser.entity.Advertiser;
 import com.wally.workhub.domain.advertiser.model.AdvertiserCreate;
+import com.wally.workhub.domain.advertiser.model.AdvertiserEdit;
 import com.wally.workhub.domain.advertiser.model.AdvertiserResponse;
 import com.wally.workhub.domain.advertiser.model.AdvertiserSearch;
 import com.wally.workhub.domain.advertiser.repository.AdvertiserRepository;
@@ -46,5 +47,18 @@ public class AdvertiserService {
                 .build();
 
         advertiserRepository.save(advertiser);
+    }
+
+    public void updateAdvertiser(Long advertiserId, AdvertiserEdit advertiserEdit) {
+
+    }
+
+    public void deleteAdvertiser(Long advertiserId) {
+        Optional<Advertiser> advertiser = advertiserRepository.findById(advertiserId);
+        if (advertiser.isEmpty()) {
+            throw new IllegalArgumentException("존재하지 않는 광고주입니다.");
+        }
+
+        advertiserRepository.delete(advertiser.get());
     }
 }

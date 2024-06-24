@@ -27,25 +27,24 @@ public class AdvertiserController {
     }
 
     @GetMapping("/advertisers/{advertiserId}")
-    public String getAdvertiserById(@PathVariable Long advertiserId) {
-        AdvertiserResponse advertiser = advertiserService.findAdvertiserById(advertiserId);
+    public AdvertiserResponse getAdvertiserById(@PathVariable Long advertiserId) {
 
-        return "광고주 단건 조회";
+        return advertiserService.findAdvertiserById(advertiserId);
     }
 
     @PostMapping("/advertisers")
-    public String createAdvertiser(@RequestBody @Valid AdvertiserCreate advertiserCreate) {
+    public void createAdvertiser(@RequestBody @Valid AdvertiserCreate advertiserCreate) {
         advertiserService.createAdvertiser(advertiserCreate);
-        return "광고주 등록";
     }
 
     @PatchMapping("/advertisers/{advertiserId}")
-    public String updateAdvertiser(@PathVariable Long advertiserId, @RequestBody AdvertiserEdit advertiserEdit) {
-        return "광고주 수정";
+    public void updateAdvertiser(@PathVariable Long advertiserId, @RequestBody AdvertiserEdit advertiserEdit) {
+        advertiserService.updateAdvertiser(advertiserId, advertiserEdit);
+
     }
 
     @DeleteMapping("/advertisers/{advertiserId}")
-    public String deleteAdvertiser(@PathVariable Long advertiserId) {
-        return "광고주 삭제";
+    public void deleteAdvertiser(@PathVariable Long advertiserId) {
+        advertiserService.deleteAdvertiser(advertiserId);
     }
 }
