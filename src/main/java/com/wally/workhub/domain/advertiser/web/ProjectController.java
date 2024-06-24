@@ -1,7 +1,7 @@
 package com.wally.workhub.domain.advertiser.web;
 
-import com.wally.workhub.domain.advertiser.model.dto.ProjectCreate;
-import com.wally.workhub.domain.advertiser.model.dto.ProjectEdit;
+import com.wally.workhub.domain.advertiser.model.ProjectCreate;
+import com.wally.workhub.domain.advertiser.model.ProjectEdit;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;

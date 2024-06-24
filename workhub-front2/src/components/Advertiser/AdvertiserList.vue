@@ -1,5 +1,4 @@
 <template>
-  <h2>Advertiser List</h2>
   <el-button type="primary" @click="addAdvertiser()">Add New Advertiser</el-button>
   <el-table :data="advertisers">
     <el-table-column prop="id" label="ID"></el-table-column>

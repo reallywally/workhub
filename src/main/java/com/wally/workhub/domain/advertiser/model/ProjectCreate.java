@@ -1,4 +1,4 @@
-package com.wally.workhub.domain.advertiser.model.dto;
+package com.wally.workhub.domain.advertiser.model;
 
 
 import lombok.Data;

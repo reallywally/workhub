@@ -1,9 +1,9 @@
 package com.wally.workhub.domain.advertiser.service;
 
 import com.wally.workhub.domain.advertiser.AdvertiserTestUtils;
-import com.wally.workhub.domain.advertiser.model.Advertiser;
-import com.wally.workhub.domain.advertiser.model.dto.AdvertiserCreate;
-import com.wally.workhub.domain.advertiser.model.dto.AdvertiserResponse;
+import com.wally.workhub.domain.advertiser.entity.Advertiser;
+import com.wally.workhub.domain.advertiser.model.AdvertiserCreate;
+import com.wally.workhub.domain.advertiser.model.AdvertiserResponse;
 import com.wally.workhub.domain.advertiser.repository.AdvertiserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

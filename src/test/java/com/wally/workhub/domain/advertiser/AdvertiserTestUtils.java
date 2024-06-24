@@ -1,7 +1,7 @@
 package com.wally.workhub.domain.advertiser;
 
-import com.wally.workhub.domain.advertiser.model.Advertiser;
-import com.wally.workhub.domain.advertiser.model.dto.AdvertiserCreate;
+import com.wally.workhub.domain.advertiser.entity.Advertiser;
+import com.wally.workhub.domain.advertiser.model.AdvertiserCreate;
 
 public class AdvertiserTestUtils {
     public static Advertiser generateAdvertiser() {

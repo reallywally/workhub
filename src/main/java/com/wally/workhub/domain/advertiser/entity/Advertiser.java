@@ -1,4 +1,4 @@
-package com.wally.workhub.domain.advertiser.model;
+package com.wally.workhub.domain.advertiser.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -8,7 +8,7 @@ import org.hibernate.annotations.Comment;
 @Getter
 @Table(name = "advertiser")
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor
 public class Advertiser {
     @Id
@@ -32,36 +32,8 @@ public class Advertiser {
     private String advertiserNameEng;
 
     @Column
-    @Comment("대표자명")
-    private String ceoName;
-
-    @Column
-    @Comment("업태")
-    private String businessType;
-
-    @Column
-    @Comment("종목")
-    private String businessCategory;
-
-    @Column
-    @Comment("사업장 주소")
-    private String businessAddress;
-
-    @Column
     @Comment("사업장 전화번호")
     private String businessPhone;
-
-    @Column
-    @Comment("계좌 은행")
-    private String bank;
-
-    @Column
-    @Comment("계좌 번호")
-    private String accountNumber;
-
-    @Column
-    @Comment("계좌 예금주")
-    private String accountHolder;
 
     @Column
     @Comment("비고")
@@ -78,7 +50,5 @@ public class Advertiser {
     @Column
     @Comment("수정일")
     private String updatedAt;
-
-
 
 }

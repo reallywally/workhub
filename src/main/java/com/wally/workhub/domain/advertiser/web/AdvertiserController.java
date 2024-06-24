@@ -1,9 +1,12 @@
 package com.wally.workhub.domain.advertiser.web;
 
-import com.wally.workhub.domain.advertiser.model.dto.AdvertiserCreate;
-import com.wally.workhub.domain.advertiser.model.dto.AdvertiserEdit;
-import com.wally.workhub.domain.advertiser.model.dto.AdvertiserResponse;
+import com.wally.workhub.common.PagingResponse;
+import com.wally.workhub.domain.advertiser.model.AdvertiserCreate;
+import com.wally.workhub.domain.advertiser.model.AdvertiserEdit;
+import com.wally.workhub.domain.advertiser.model.AdvertiserResponse;
+import com.wally.workhub.domain.advertiser.model.AdvertiserSearch;
 import com.wally.workhub.domain.advertiser.service.AdvertiserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -19,8 +22,8 @@ public class AdvertiserController {
     private final AdvertiserService advertiserService;
 
     @GetMapping("/advertisers")
-    public List<AdvertiserResponse> getAdvertisers(Pageable pageable) {
-        return advertiserService.getList(pageable);
+    public PagingResponse<AdvertiserResponse> getAdvertisers(@ModelAttribute AdvertiserSearch advertiserSearch) {
+        return advertiserService.getList(advertiserSearch);
     }
 
     @GetMapping("/advertisers/{advertiserId}")
@@ -31,7 +34,7 @@ public class AdvertiserController {
     }
 
     @PostMapping("/advertisers")
-    public String createAdvertiser(@RequestBody AdvertiserCreate advertiserCreate) {
+    public String createAdvertiser(@RequestBody @Valid AdvertiserCreate advertiserCreate) {
         advertiserService.createAdvertiser(advertiserCreate);
         return "광고주 등록";
     }

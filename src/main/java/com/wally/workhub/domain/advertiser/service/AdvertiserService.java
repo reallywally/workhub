@@ -1,32 +1,27 @@
 package com.wally.workhub.domain.advertiser.service;
 
-import com.wally.workhub.domain.advertiser.model.Advertiser;
-import com.wally.workhub.domain.advertiser.model.dto.AdvertiserCreate;
-import com.wally.workhub.domain.advertiser.model.dto.AdvertiserResponse;
+import com.wally.workhub.common.PagingResponse;
+import com.wally.workhub.domain.advertiser.entity.Advertiser;
+import com.wally.workhub.domain.advertiser.model.AdvertiserCreate;
+import com.wally.workhub.domain.advertiser.model.AdvertiserResponse;
+import com.wally.workhub.domain.advertiser.model.AdvertiserSearch;
 import com.wally.workhub.domain.advertiser.repository.AdvertiserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class AdvertiserService {
     private final AdvertiserRepository advertiserRepository;
 
-    public List<AdvertiserResponse> getList(Pageable pageable) {
-        // Pageable pageable = PageRequest.of(page, 5);
+    public PagingResponse<AdvertiserResponse> getList(AdvertiserSearch advertiserSearch) {
+        Page<Advertiser> list = advertiserRepository.getList(advertiserSearch);
 
-        return advertiserRepository.findAll(pageable).stream()
-                .map(advertiser -> AdvertiserResponse.builder()
-                        .businessNumber(advertiser.getBusinessNumber())
-                        .businessName(advertiser.getBusinessName())
-                        .advertiserName(advertiser.getAdvertiserName())
-                        .build())
-                .collect(Collectors.toList());
+        return new PagingResponse<>(list, AdvertiserResponse.class);
     }
 
     public AdvertiserResponse findAdvertiserById(Long advertiserId) {
@@ -35,11 +30,7 @@ public class AdvertiserService {
             throw new IllegalArgumentException("존재하지 않는 광고주입니다.");
         }
 
-        return AdvertiserResponse.builder()
-                .businessNumber(advertiser.get().getBusinessNumber())
-                .businessName(advertiser.get().getBusinessName())
-                .advertiserName(advertiser.get().getAdvertiserName())
-                .build();
+        return new AdvertiserResponse(advertiser.get());
     }
 
     public void createAdvertiser(AdvertiserCreate advertiserCreate) {

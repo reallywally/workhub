@@ -1,4 +1,4 @@
-package com.wally.workhub.domain.advertiser.model;
+package com.wally.workhub.domain.advertiser.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;

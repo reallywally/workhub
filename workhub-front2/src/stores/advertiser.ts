@@ -8,14 +8,14 @@ export const useAdvertiserStore = defineStore('advertiser', {
     }),
     actions: {
         async fetchAdvertisers() {
-            const response = await axios.get('/api/advertisers');
+            const response = await axios.get('/api/advertisers?page=1&size=30');
             this.advertisers = response.data;
         },
         async fetchAdvertiser(id) {
             const response = await axios.get(`/api/advertisers/${id}`);
             this.advertisers = response.data;
         },
-        async createAdvertisers(advertiser) {
+        async createAdvertiser(advertiser) {
             await axios.post('/api/advertisers', advertiser);
             await this.fetchAdvertisers();
         },
