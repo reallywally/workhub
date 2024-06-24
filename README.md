@@ -28,3 +28,7 @@
 
 ### 프론트 참고 사이트
 - https://github.com/kailong321200875/vue-element-plus-admin
+
+### front 참고 
+- 기능이 부족해도 빠르게 구현하고, 나중에 개선하는 방향으로 진행
+
