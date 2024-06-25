@@ -2,7 +2,7 @@
 import Comments from '@/components/Comments.vue'
 import { onMounted, reactive } from 'vue'
 import { container } from 'tsyringe'
-import PostRepository from '@/repository/PostRepository'
+import AdvertiserRepository from '@/repository/PostRepository'
 import Post from '@/entity/post/Post'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useRouter } from 'vue-router'

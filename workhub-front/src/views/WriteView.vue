@@ -2,7 +2,7 @@
 import { reactive } from 'vue'
 import PostWrite from '@/entity/post/PostWrite'
 import { container } from 'tsyringe'
-import PostRepository from '@/repository/PostRepository'
+import AdvertiserRepository from '@/repository/PostRepository'
 import { ElMessage } from 'element-plus'
 import type HttpError from '@/http/HttpError'
 import { useRouter } from 'vue-router'

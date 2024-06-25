@@ -2,7 +2,7 @@
 import type Post from '@/entity/post/Post'
 import { onMounted, reactive } from 'vue'
 import { container } from 'tsyringe'
-import PostRepository from '@/repository/PostRepository'
+import AdvertiserRepository from '@/repository/PostRepository'
 import Paging from '@/entity/data/Paging'
 import PostComponent from '@/components/PostComponent.vue'
 
