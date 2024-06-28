@@ -23,7 +23,6 @@
 </template>
 
 <script setup lang="ts">
-import { useAdvertiserStore } from '../../stores/advertiser';
 import { onMounted, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { container } from 'tsyringe'
@@ -32,6 +31,7 @@ import Paging from '@/entity/data/Paging'
 import Advertiser from "@/entity/advertiser/Advertiser.js";
 
 const ADVERTISER_REPOSITORY = container.resolve(AdvertiserRepository)
+const router = useRouter()
 
 type StateType = {
   advertiserList: Paging<Advertiser>
@@ -45,6 +45,14 @@ function getList(page = 1) {
   ADVERTISER_REPOSITORY.getList(page).then((advertiserList) => {
     state.advertiserList = advertiserList
   })
+}
+
+function addAdvertiser() {
+  router.push('/advertiser/new')
+}
+
+function editAdvertiser(advertiser: Advertiser) {
+  router.push({ name: 'AdvertiserEdit', params: { advertiserId: advertiser.id } })
 }
 
 onMounted(() => {

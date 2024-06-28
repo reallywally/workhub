@@ -33,10 +33,10 @@ const routes = [
 
             },
             {
-                path: 'advertiser/:id',
+                path: 'advertiser/:advertiserId',
                 name: 'AdvertiserEdit',
                 component: AdvertiserEdit,
-
+                props: true,
             }
         ],
     },
