@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1> advertiser edit</h1>
+    <!-- 광고주 상세 -->
     <el-card>
       <el-form label-width="120px">
         <el-form-item label="사업자 등록 번호">
@@ -27,10 +28,22 @@
         </el-form-item>
       </el-form>
     </el-card>
+
+    <!-- 탭 메뉴 -->
+    <el-card>
+      <el-tabs v-model="activeTab">
+        <el-tab-pane label="Project Management" name="projectManagement">
+          <ProjectManagement :advertiserId="advertiserId"/>
+        </el-tab-pane>
+        <el-tab-pane label="Assign Manager" name="assignManager">
+          <AssignManager :advertiserId="advertiserId"/>
+        </el-tab-pane>
+      </el-tabs>
+    </el-card>
   </div>
 </template>
 
-<script  setup lang="ts">
+<script setup lang="ts">
 import {container} from "tsyringe";
 import AdvertiserRepository from "@/repository/AdvertiserRepository";
 import Advertiser from "@/entity/advertiser/Advertiser";
@@ -72,7 +85,7 @@ function remove() {
     type: 'warning',
   }).then(() => {
     ADVERTISER_REPOSITORY.delete(props.advertiserId).then(() => {
-      ElMessage({ type: 'success', message: '성공적으로 삭제되었습니다.' })
+      ElMessage({type: 'success', message: '성공적으로 삭제되었습니다.'})
       router.back()
     })
   })
