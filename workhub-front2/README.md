@@ -1,1 +1,0 @@
-npm install element-plus pinia axios
